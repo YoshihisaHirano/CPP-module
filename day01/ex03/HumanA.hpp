@@ -1,0 +1,18 @@
+#ifndef __HUMAN_A_H__
+#define __HUMAN_A_H__
+#include "Weapon.hpp"
+
+class HumanA
+{
+private:
+	std::string	_name;
+	Weapon 		&_weapon;
+
+public:
+	HumanA(std::string name, Weapon &weapon);
+	~HumanA();
+
+	void	attack() const;
+};
+
+#endif

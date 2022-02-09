@@ -24,8 +24,7 @@ int main()
 			std::cout << "Please insert nickname: ";
 			std::getline(std::cin, nickname);
 			std::cout << "Please insert phone number: ";
-			std::cin >> phone;
-			std::cin.ignore();
+			std::getline(std::cin, phone);
 			std::cout << "Please insert darkest secret: ";
 			std::getline(std::cin, secret);
 			awesome_phonebook.add(firstName, lastName, nickname, phone, secret);

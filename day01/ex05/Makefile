@@ -1,0 +1,13 @@
+SRC		=	main.cpp Karen.cpp
+HDRS	=	Karen.hpp
+NAME	=	karen
+
+.PHONY	:	all fclean
+
+all		:	$(NAME)
+
+$(NAME)	:	$(SRC) $(HDRS)
+			c++ -Wall -Wextra -Werror $(SRC) -o $(NAME)
+
+fclean	:	
+			rm -f $(NAME)
