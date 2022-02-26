@@ -11,7 +11,7 @@ private:
 	void	error( void );
 
 public:
-	Karen(/* args */);
+	Karen();
 	~Karen();
 	void	complain( std::string level );
 };

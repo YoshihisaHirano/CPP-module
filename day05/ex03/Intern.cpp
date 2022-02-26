@@ -7,18 +7,17 @@ Intern::Intern()
 {
 }
 
-Intern::Intern(Intern const& other)
+Intern::Intern(Intern const& )
 {
-	(void)other;
+
 }
 
 Intern::~Intern()
 {
 }
 
-Intern& Intern::operator=(Intern const& other)
+Intern& Intern::operator=(Intern const& )
 {
-	(void)other;
 	return *this;
 }
 
