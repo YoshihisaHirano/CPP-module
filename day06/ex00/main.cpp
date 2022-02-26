@@ -7,22 +7,25 @@ bool	is_digit(char c) {
 
 bool	check_valid(std::string input)
 {
-	int	dots = 0;
+	int		dots = 0;
+	size_t	i = 0;
 
 	if (input.size() == 1 || input == "nan" || input == "nanf" ||
 	input == "+inf" || input == "-inf" || input == "-inff" || input == "+inff")
 		return true;
-	for (size_t i = 0; i < (input.size() - (input[input.size()] == 'f')); i++)
+	if (input[0] == '-' || input[0] == '+')
+		i++;
+	for (size_t j = i; j < (input.size() - (input[input.size() - 1] == 'f')); j++)
 	{
-		if (input[i] == '.')
+		if (input[j] == '.')
 			dots++;
-		if (dots > 1 || (!is_digit(input[i]) && input[i] != '.'))
+		if (dots > 1 || (!is_digit(input[j]) && input[j] != '.'))
 			return false;
 	}
 	return true;
 }
 
-void	print_char(double num, bool impossible)
+void	print_char(long double num, bool impossible)
 {
 	char	cast_char;
 
@@ -47,7 +50,7 @@ void	print_char(double num, bool impossible)
 	std::cout << cast_char << std::endl;
 }
 
-void	print_int(double num, bool impossible, bool add_plus)
+void	print_int(long double num, bool impossible, bool add_plus)
 {
 	int	cast_int;
 
@@ -69,12 +72,12 @@ void	print_int(double num, bool impossible, bool add_plus)
 	std::cout << cast_int << std::endl;
 }
 
-void	print_float(double num, bool impossible, bool add_plus)
+void	print_float(long double num, bool impossible, bool add_plus)
 {
 	float	cast_float;
 
 	std::cout << "float: ";
-	if (impossible || (!isinf(num) && (num < std::numeric_limits<float>::min() || 
+	if (impossible || (!isinf(num) && (num < std::numeric_limits<float>::lowest() || 
 		num > std::numeric_limits<float>::max())))
 	{
 		std::cout << "impossible" << std::endl;
@@ -86,18 +89,18 @@ void	print_float(double num, bool impossible, bool add_plus)
 	std::cout << cast_float << "f" << std::endl;
 }
 
-void	print_double(double num, bool impossible, bool add_plus)
+void	print_double(long double num, bool impossible, bool add_plus)
 {
-	long double	wider_num;
+	double	cast_double;
 
 	std::cout << "double: ";
-	wider_num = static_cast<long double>(num);
-	if (impossible || (!isinf(num) && (wider_num < std::numeric_limits<double>::min() || 
-		wider_num > std::numeric_limits<double>::max())))
+	if (impossible || (!isinf(num) && (num < std::numeric_limits<double>::lowest() || 
+		num > std::numeric_limits<double>::max())))
 	{
 		std::cout << "impossible" << std::endl;
 		return;
 	}
+	cast_double = static_cast<double>(num);
 	if (add_plus)
 		std::cout << "+";
 	std::cout << num << std::endl;
@@ -105,9 +108,9 @@ void	print_double(double num, bool impossible, bool add_plus)
 
 int main(int argc, char const *argv[])
 {
-	bool	global_impossible;
-	bool	add_plus = 0;
-	double	num;
+	bool		global_impossible;
+	bool		add_plus = 0;
+	long double	num;
 	std::string	arg;
 
 	if (argc != 2)
@@ -119,7 +122,7 @@ int main(int argc, char const *argv[])
 	if (arg[0] == '+')
 		add_plus = 1;
 	global_impossible = !check_valid(arg);
-	num = std::strtod(argv[1], NULL);
+	num = std::strtold(argv[1], NULL);
 	print_char(num, global_impossible);
 	print_int(num, global_impossible, add_plus);
 	print_float(num, global_impossible, add_plus);
